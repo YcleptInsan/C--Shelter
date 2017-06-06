@@ -76,7 +76,7 @@ namespace Shelter.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM animal WHERE category_id = @CategoryId;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM animal WHERE category_id = @CategoryId ORDER BY name;", conn);
       SqlParameter categoryIdParameter = new SqlParameter();
       categoryIdParameter.ParameterName = "@CategoryId";
       categoryIdParameter.Value = this.GetId();
@@ -105,6 +105,40 @@ namespace Shelter.Objects
       }
       return animal;
     }
+    // public List<Animal> GetAnimalsAlphabetically()
+    // {
+    //   SqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   SqlCommand cmd = new SqlCommand("SELECT * FROM animal WHERE category_id = @CategoryId ORDER BY breed;", conn);
+    //   SqlParameter categoryIdParameter = new SqlParameter();
+    //   categoryIdParameter.ParameterName = "@CategoryId";
+    //   categoryIdParameter.Value = this.GetId();
+    //   cmd.Parameters.Add(categoryIdParameter);
+    //   SqlDataReader rdr = cmd.ExecuteReader();
+    //
+    //   List<Animal> animal = new List<Animal> {};
+    //   while(rdr.Read())
+    //   {
+    //     int animalId = rdr.GetInt32(0);
+    //     string animalName = rdr.GetString(1);
+    //     string animalGender = rdr.GetString(2);
+    //     string animalDate = rdr.GetString(3);
+    //     string animalBreed = rdr.GetString(4);
+    //     int animalCategoryId = rdr.GetInt32(5);
+    //     Animal newAnimal = new Animal(animalName, animalGender, animalDate, animalBreed, animalCategoryId, animalId);
+    //     animal.Add(newAnimal);
+    //   }
+    //   if (rdr != null)
+    //   {
+    //     rdr.Close();
+    //   }
+    //   if (conn != null)
+    //   {
+    //     conn.Close();
+    //   }
+    //   return animal;
+    // }
     public void Save()
     {
       SqlConnection conn = DB.Connection();
